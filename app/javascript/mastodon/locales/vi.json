@@ -399,6 +399,7 @@
   "status.embed": "Nhúng",
   "status.favourite": "Thích",
   "status.filtered": "Bộ lọc",
+  "status.hide_translation": "Hide translation",
   "status.load_more": "Xem thêm",
   "status.media_hidden": "Đã ẩn",
   "status.mention": "Nhắc đến @{name}",
