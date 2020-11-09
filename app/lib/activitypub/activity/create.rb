@@ -74,6 +74,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
     @silenced_account_ids = []
     @params               = {}
 
+    process_quote
     process_status_params
     process_tags
     process_audience
@@ -124,6 +125,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
         conversation: conversation_from_uri(@object['conversation']),
         media_attachment_ids: process_attachments.take(4).map(&:id),
         poll: process_poll,
+        quote: quote,
       }
     end
   end
@@ -370,6 +372,39 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
     Formatter.instance.linkify([@status_parser.title.presence, @status_parser.spoiler_text.presence, @status_parser.url || @status_parser.uri].compact.join("\n\n"))
   end
 
+  # moved to app/lib/activitypub/parser/status_parser.rb
+  # TODO: should be deprecated in 1060666c583670bb3b89ed5154e61038331e30c3
+  # see: https://github.com/mastodon/mastodon/commit/1060666c583670bb3b89ed5154e61038331e30c3#diff-9a8cecdf35c00c53c513bfa0592c8631e8369038cccdc16794aee6107d2418abL387
+  # def text_from_content
+  #   return Formatter.instance.linkify([[text_from_name, text_from_summary.presence].compact.join("\n\n"), object_url || object_uri].join(' ')) if converted_object_type?
+
+  #   if @object['quoteUrl'].blank? && @object['_misskey_quote'].present?
+  #     Formatter.instance.linkify(@object['_misskey_content'])
+  #   elsif @object['content'].present?
+  #     @object['content']
+  #   elsif content_language_map?
+  #     @object['contentMap'].values.first
+  #   end
+  # end
+
+  # TODO: should be deprecated in 1060666c583670bb3b89ed5154e61038331e30c3
+  # def text_from_summary
+  #   if @object['summary'].present?
+  #     @object['summary']
+  #   elsif summary_language_map?
+  #     @object['summaryMap'].values.first
+  #   end
+  # end
+
+  # TODO: should be deprecated in 1060666c583670bb3b89ed5154e61038331e30c3
+  # def text_from_name
+  #   if @object['name'].present?
+  #     @object['name']
+  #   elsif name_language_map?
+  #     @object['nameMap'].values.first
+  #   end
+  # end
+
   def detected_language
     LanguageDetector.instance.detect(@status_parser.text, @account) if supported_object_type?
   end
@@ -427,5 +462,25 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
   rescue ActiveRecord::StaleObjectError
     poll.reload
     retry
+  end
+
+  def quote
+    @quote ||= quote_from_url(@object['quoteUrl'] || @object['_misskey_quote'])
+  end
+
+  def process_quote
+    if quote.nil? && md = @object['content']&.match(/QT:\s*\[<a href=\"([^\"]+).*?\]/)
+      @quote = quote_from_url(md[1])
+      @object['content'] = @object['content'].sub(/QT:\s*\[.*?\]/, '<span class="quote-inline"><br/>\1</span>')
+    end
+  end
+
+  def quote_from_url(url)
+    return nil if url.nil?
+
+    quote = ResolveURLService.new.call(url)
+    status_from_uri(quote.uri) if quote
+  rescue
+    nil
   end
 end
