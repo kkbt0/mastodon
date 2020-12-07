@@ -556,6 +556,8 @@ GEM
       nokogiri (>= 1.10.5)
       rexml
     ruby2_keywords (0.0.5)
+    rucaptcha (2.5.3)
+      railties (>= 3.2)
     rufus-scheduler (3.7.0)
       fugit (~> 1.1, >= 1.1.6)
     safety_net_attestation (0.4.0)
@@ -788,6 +790,7 @@ DEPENDENCIES
   rubocop (~> 1.24)
   rubocop-rails (~> 2.13)
   ruby-progressbar (~> 1.11)
+  rucaptcha (~> 2.5.3)
   sanitize (~> 6.0)
   scenic (~> 1.5)
   sidekiq (~> 6.3)
