@@ -43,7 +43,7 @@ class StatusesIndex < Chewy::Index
     },
   }
 
-  index_scope ::Status.unscoped.kept.without_reblogs.includes(:media_attachments, :preloadable_poll)
+  index_scope ::Status.unscoped.kept.without_reblogs.excluding_bots_accounts.includes(:media_attachments, :preloadable_poll)
 
   crutch :mentions do |collection|
     data = ::Mention.where(status_id: collection.map(&:id)).where(account: Account.local, silent: false).pluck(:status_id, :account_id)
