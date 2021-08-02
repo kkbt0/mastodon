@@ -1380,6 +1380,10 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@node-redis/time-series/-/time-series-1.0.0.tgz#3db4caa63d7c158f0b73ab6cd46bd6c9c187dfaf"
   integrity sha512-QcaCIL/DlYJXedSfmjF+IRxKJbBUXBrjA5Gv0IiPlXXFFOkRnbPGKq6hmwBAAWyk1U03wyBHDFKVS3/9GnZV8g==
+  
+"@moezx/fontawesome-pro@https://github.com/moezx/Font-Awesome.git":
+  version "5.14.0"
+  resolved "https://github.com/moezx/Font-Awesome.git#bf65af970b20f2f8cc9d10e7118cb0495dc82e1e"
 
 "@npmcli/move-file@^1.0.1":
   version "1.0.1"
