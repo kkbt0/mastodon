@@ -7,6 +7,8 @@
   .fields-group
     = f.input :shortcode, wrapper: :with_label, label: t('admin.custom_emojis.shortcode'), hint: t('admin.custom_emojis.shortcode_hint')
   .fields-group
+    = f.input :name, wrapper: :with_label, label: t('admin.custom_emojis.name'), hint: t('admin.custom_emojis.name_hint')
+  .fields-group
     = f.input :image, wrapper: :with_label, input_html: { accept: 'image/png' }, hint: t('admin.custom_emojis.image_hint')
 
   .actions

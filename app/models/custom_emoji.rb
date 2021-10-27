@@ -18,6 +18,7 @@
 #  visible_in_picker            :boolean          default(TRUE), not null
 #  category_id                  :bigint(8)
 #  image_storage_schema_version :integer
+#  name                         :string
 #
 
 class CustomEmoji < ApplicationRecord
@@ -82,6 +83,10 @@ class CustomEmoji < ApplicationRecord
 
     def search(shortcode)
       where('"custom_emojis"."shortcode" ILIKE ?', "%#{shortcode}%")
+    end
+
+    def search_by_name(name)
+      where('"custom_emojis"."name" ILIKE ?', "%#{name}%")
     end
   end
 

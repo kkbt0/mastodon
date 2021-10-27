@@ -5,7 +5,8 @@ class CustomEmojiFilter
     local
     remote
     by_domain
-    shortcode
+    shortcode,
+    by_name
   ).freeze
 
   attr_reader :params
@@ -36,6 +37,8 @@ class CustomEmojiFilter
       CustomEmoji.remote
     when 'by_domain'
       CustomEmoji.where(domain: value.strip.downcase)
+    when 'by_name'
+      CustomEmoji.search_by_name(value.strip.downcase)
     when 'shortcode'
       CustomEmoji.search(value.strip)
     else

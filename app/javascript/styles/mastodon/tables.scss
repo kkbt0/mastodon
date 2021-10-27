@@ -258,6 +258,18 @@ a.table-action-link {
     }
   }
 
+  &__wrapper{
+    display: flex;
+    &--column{
+      flex-direction: column;
+      width: 100%;
+    }
+    &--row{
+      flex-direction: row;
+      width: 100%;
+    }
+  }
+
   &.optional .batch-table__toolbar,
   &.optional .batch-table__row__select {
     @media screen and (max-width: $no-gap-breakpoint) {

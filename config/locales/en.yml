@@ -358,6 +358,8 @@ en:
       image_hint: PNG up to 50KB
       list: List
       listed: Listed
+      name: Display name
+      name_hint: Emoji display name, leave it blank to use shortcode as display name by default
       new:
         title: Add new custom emoji
       not_permitted: You are not permitted to perform this action
@@ -368,6 +370,7 @@ en:
       uncategorized: Uncategorized
       unlist: Unlist
       unlisted: Unlisted
+      unnamed: Unnamed
       update_failed_msg: Could not update that emoji
       updated_msg: Emoji successfully updated!
       upload: Upload

@@ -42,7 +42,7 @@ module Admin
     private
 
     def resource_params
-      params.require(:custom_emoji).permit(:shortcode, :image, :visible_in_picker)
+      params.require(:custom_emoji).permit(:shortcode, :image, :visible_in_picker, :name)
     end
 
     def filtered_custom_emojis

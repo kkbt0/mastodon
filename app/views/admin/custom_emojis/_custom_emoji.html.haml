@@ -1,35 +1,68 @@
 .batch-table__row
-  %label.batch-table__row__select.batch-table__row__select--aligned.batch-checkbox
-    = f.check_box :custom_emoji_ids, { multiple: true, include_hidden: false }, custom_emoji.id
-  .batch-table__row__content.batch-table__row__content--with-image
-    .batch-table__row__content__image
-      = custom_emoji_tag(custom_emoji, animate = current_account&.user&.setting_auto_play_gif)
+  .batch-table__wrapper.batch-table__wrapper--column
+    .batch-table__wrapper.batch-table__wrapper--row
+      %label.batch-table__row__select.batch-table__row__select--aligned.batch-checkbox
+        = f.check_box :custom_emoji_ids, { multiple: true, include_hidden: false }, custom_emoji.id
+      .batch-table__row__content.batch-table__row__content--with-image
+        .batch-table__row__content__image
+          = custom_emoji_tag(custom_emoji, animate = current_account&.user&.setting_auto_play_gif)
 
-    .batch-table__row__content__text
-      %samp= ":#{custom_emoji.shortcode}:"
+        .batch-table__row__content__text
+          %samp= ":#{custom_emoji.shortcode}:"
 
-      - if custom_emoji.local?
-        %span.account-role.bot= custom_emoji.category&.name || t('admin.custom_emojis.uncategorized')
+          - if custom_emoji.local?
+            %span.account-role.marked= custom_emoji.name.blank? ? t('admin.custom_emojis.unnamed') : custom_emoji.name
+            %span.account-role.bot= custom_emoji.category&.name || t('admin.custom_emojis.uncategorized')
 
-    .batch-table__row__content__extra
-      - if custom_emoji.local?
-        = t('admin.accounts.location.local')
-      - else
-        = custom_emoji.domain
+        .batch-table__row__content__extra
+          - if custom_emoji.local?
+            = t('admin.accounts.location.local')
+          - else
+            = custom_emoji.domain
 
-        - if custom_emoji.local_counterpart.present?
-          &bull;
-          = t('admin.accounts.location.local')
+            - if custom_emoji.local_counterpart.present?
+              &bull;
+              = t('admin.accounts.location.local')
 
-      %br/
+          %br/
 
-      - if custom_emoji.disabled?
-        = t('admin.custom_emojis.disabled')
-      - else
-        = t('admin.custom_emojis.enabled')
-      - if custom_emoji.local?
-        &bull;
-        - if custom_emoji.visible_in_picker?
-          = t('admin.custom_emojis.listed')
-        - else
-          = t('admin.custom_emojis.unlisted')
+          - if custom_emoji.disabled?
+            = t('admin.custom_emojis.disabled')
+          - else
+            = t('admin.custom_emojis.enabled')
+          - if custom_emoji.local?
+            &bull;
+            - if custom_emoji.visible_in_picker?
+              = t('admin.custom_emojis.listed')
+            - else
+              = t('admin.custom_emojis.unlisted')
+
+    - if params[:local] == '1' && params[:edit] == custom_emoji.id.to_s
+      = form_tag admin_custom_emojis_url, method: 'GET', class: 'simple_form' do
+        .fields-group
+          - CustomEmojiFilter::KEYS.each do |key|
+            = hidden_field_tag key, params[key] if params[key].present?
+
+          - %i(shortcode by_domain).each do |key|
+            .input.string.optional
+              = text_field_tag key, params[key], class: 'string optional', placeholder: I18n.t("admin.custom_emojis.#{key}")
+
+          .actions
+            %button.button= t('admin.accounts.search')
+            = link_to t('admin.accounts.reset'), admin_custom_emojis_path, class: 'button negative'
+      -# .fields-row
+      -#   .fields-group.fields-row__column.fields-row__column-6
+      -#     .input.select.optional
+      -#       .label_input
+      -#         = f.select :category_id, options_from_collection_for_select(CustomEmojiCategory.all, 'id', 'name'), prompt: t('admin.custom_emojis.assign_category'), class: 'select optional', 'aria-label': t('admin.custom_emojis.assign_category')
+
+      -#   .fields-group.fields-row__column.fields-row__column-6
+          .input.string.optional
+            .label_input
+              = f.text_field :category_name, class: 'string optional', placeholder: t('admin.custom_emojis.create_new_category'), 'aria-label': t('admin.custom_emojis.create_new_category')
+
+
+      -# .simple_form
+        -# .actions
+        -#   %button.button= t('admin.accounts.search')
+        -#   = t('admin.accounts.reset'), class: 'button negative'
