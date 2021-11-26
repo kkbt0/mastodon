@@ -64,4 +64,14 @@ Devise.setup do |config|
     saml_options[:allowed_clock_drift] = ENV['SAML_ALLOWED_CLOCK_DRIFT'] if ENV['SAML_ALLOWED_CLOCK_DRIFT']
     config.omniauth :saml, saml_options
   end
+
+  # Github strategy
+  if ENV['GITHUB_OAUTH2_ENABLED'] == 'true'
+    config.omniauth :github, ENV['GITHUB_OAUTH2_KEY'], ENV['GITHUB_OAUTH2_SECRET'], scope: 'user.info'
+  end
+
+  # Gitlab strategy
+  if ENV['GITLAB_OAUTH2_ENABLED'] == 'true'
+    config.omniauth :gitlab, ENV['GITLAB_OAUTH2_KEY'], ENV['GITLAB_OAUTH2_SECRET'], scope: 'read_user'
+  end
 end
