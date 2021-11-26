@@ -39,6 +39,8 @@ end
 
 gem 'net-ldap', '~> 0.17'
 gem 'omniauth-cas', '~> 2.0'
+gem 'omniauth-github', '~> 1.4'
+gem 'omniauth-gitlab', '~> 1.0.2'
 gem 'omniauth-saml', '~> 1.10'
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-rails_csrf_protection', '~> 0.1'
