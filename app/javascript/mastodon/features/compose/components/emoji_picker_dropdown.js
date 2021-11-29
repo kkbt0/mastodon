@@ -283,6 +283,7 @@ class EmojiPickerMenu extends React.PureComponent {
           notFound={notFoundFn}
           autoFocus={window.innerWidth > 625}
           emojiTooltip
+          maxResults={750}
         />
 
         <ModifierPicker
