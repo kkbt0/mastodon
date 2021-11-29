@@ -766,6 +766,7 @@ zh-CN:
     link_to_otp: 输入从手机中获得的两步验证代码或恢复代码
     link_to_webauth: 使用你的安全密钥设备
     login: 登录
+    login_with_provider: 通过 %{provider_name} 登录
     logout: 登出
     migrate_account: 迁移到另一个帐户
     migrate_account_html: 如果你希望引导别人关注另一个帐户，请<a href="%{path}">点击这里进行设置</a>。
