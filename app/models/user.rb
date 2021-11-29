@@ -129,7 +129,7 @@ class User < ApplicationRecord
            :advanced_layout, :use_blurhash, :use_pending_items, :trends, :crop_images,
            :default_federation, :default_content_type,
            :disable_swiping,
-           :enable_snowfall, :custom_css,
+           :enable_snowfall, :enable_noto_serif, :custom_css,
            to: :settings, prefix: :setting, allow_nil: false
 
   attr_reader :invite_code, :sign_in_token_attempt
