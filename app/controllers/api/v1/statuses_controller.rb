@@ -51,7 +51,7 @@ class Api::V1::StatusesController < Api::BaseController
       with_rate_limit: true,
       content_type: status_params[:content_type], #'text/markdown'
       local_only: status_params[:local_only],
-      quote_id: status_params[:quote_id].presence),
+      quote_id: status_params[:quote_id].presence,
     )
 
     render json: @status, serializer: @status.is_a?(ScheduledStatus) ? REST::ScheduledStatusSerializer : REST::StatusSerializer
@@ -68,7 +68,9 @@ class Api::V1::StatusesController < Api::BaseController
       media_ids: status_params[:media_ids],
       sensitive: status_params[:sensitive],
       spoiler_text: status_params[:spoiler_text],
-      poll: status_params[:poll]
+      poll: status_params[:poll],
+      content_type: status_params[:content_type],
+      local_only: status_params[:local_only],
     )
 
     render json: @status, serializer: REST::StatusSerializer
