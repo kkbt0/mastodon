@@ -244,6 +244,8 @@ class Status < ApplicationRecord
       account_id: account_id || self.account_id,
       created_at: at_time || edited_at,
       rate_limit: rate_limit
+      content_type: content_type || 'text/plain',
+      local_only: !!local_only
     )
   end
 

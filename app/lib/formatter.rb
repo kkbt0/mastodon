@@ -33,7 +33,7 @@ class Formatter
 
     linkable_accounts = status.respond_to?(:active_mentions) ? status.active_mentions.map(&:account) : []
     linkable_accounts << status.account
-    
+
     formatter_options = {
       input: :mastodon,
       entity_output: :as_input,
@@ -66,7 +66,7 @@ class Formatter
       html = simple_format(html, {}, sanitize: false)
     end
 
-    html = quotify(html, status) if status.quote? && !options[:escape_quotify]
+    html = quotify(html, status) if defined?(status.quote) && status.quote? && !options[:escape_quotify]
     html = html.delete("\n")
     html.html_safe # rubocop:disable Rails/OutputSafety
   end
