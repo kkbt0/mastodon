@@ -11,6 +11,8 @@
 #  media_attachments_changed :boolean          default(FALSE), not null
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
+#  content_type              :string
+#  local_only                :boolean
 #
 
 class StatusEdit < ApplicationRecord
