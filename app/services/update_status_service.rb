@@ -91,6 +91,8 @@ class UpdateStatusService < BaseService
     @status.sensitive    = @options[:sensitive] || @options[:spoiler_text].present? if @options.key?(:sensitive) || @options.key?(:spoiler_text)
     @status.language     = valid_locale_cascade(@options[:language], @status.language, @status.account.user&.preferred_posting_language, I18n.default_locale)
     @status.edited_at    = Time.now.utc
+    @status.content_type = @options[:content_type] || 'text/plain'
+    @status.local_only   = !!@options[:local_only]
 
     @status.save!
   end
