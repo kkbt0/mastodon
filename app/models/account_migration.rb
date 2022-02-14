@@ -50,6 +50,18 @@ class AccountMigration < ApplicationRecord
     end
   end
 
+  def save_without_challenge(current_user)
+    return false unless errors.empty?
+
+    RedisLock.acquire(lock_options) do |lock|
+      if lock.acquired?
+        save
+      else
+        raise Mastodon::RaceConditionError
+      end
+    end
+  end
+
   def cooldown_at
     created_at + COOLDOWN_PERIOD
   end
