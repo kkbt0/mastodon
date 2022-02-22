@@ -268,9 +268,9 @@ class ComposeForm extends ImmutablePureComponent {
           <div className='compose-form__buttons'>
             <UploadButtonContainer />
             <PollButtonContainer />
-            <ContentTypeDropdownContainer/>
-            <PrivacyDropdownContainer  disabled={this.props.isEditing}  />
-            <FederationDropdownContainer  disabled={this.props.isEditing}  />
+            <ContentTypeDropdownContainer />
+            <PrivacyDropdownContainer disabled={this.props.isEditing}  />
+            <FederationDropdownContainer disabled={this.props.isEditing}  />
             <SpoilerButtonContainer />
           </div>
           <div className='character-counter__wrapper'><CharacterCounter max={MAX_CHARS} text={this.getFulltextForCharacterCounting()} /></div>
