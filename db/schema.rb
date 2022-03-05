@@ -391,7 +391,6 @@ ActiveRecord::Schema.define(version: 2022_02_27_041951) do
     t.bigint "parent_id"
     t.inet "ips", array: true
     t.datetime "last_refresh_at"
-
     t.index ["domain"], name: "index_email_domain_blocks_on_domain", unique: true
   end
 
@@ -892,12 +891,11 @@ ActiveRecord::Schema.define(version: 2022_02_27_041951) do
     t.bigint "in_reply_to_account_id"
     t.bigint "poll_id"
     t.datetime "deleted_at"
-    t.datetime "edited_at"
-    t.boolean "trendable"
     t.boolean "local_only"
     t.string "content_type"
     t.bigint "quote_id"
     t.datetime "edited_at"
+    t.boolean "trendable"
     t.index ["account_id", "id", "visibility", "updated_at"], name: "index_statuses_20190820", order: { id: :desc }, where: "(deleted_at IS NULL)"
     t.index ["deleted_at"], name: "index_statuses_on_deleted_at", where: "(deleted_at IS NOT NULL)"
     t.index ["id", "account_id"], name: "index_statuses_local_20190824", order: { id: :desc }, where: "((local OR (uri IS NULL)) AND (deleted_at IS NULL) AND (visibility = 0) AND (reblog_of_id IS NULL) AND ((NOT reply) OR (in_reply_to_account_id = account_id)))"
