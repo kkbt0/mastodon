@@ -91,6 +91,8 @@ The Docker images are listed [here](https://hub.docker.com/r/mashirozx/mastodon/
 
 Since there are a lot of changes in v4 of upstream, I'm still working on merging it, see `dev` branch. But for the benefit of a long turn maintenance, I'm planing remove some less important features form this fork to reduce the work  I have to do every time when merge the code. I'm also considering switching to another web front end, like [elk](https://elk.zone), because the official web interface is really not in my favour :(
 
+I see there is [a pull request](https://github.com/mastodon/mastodon/pull/16210) on upstream that contains chqnges to use TypeScript, which is great, I'll keep an eye on it.
+
 ## Finally
 
 Thanks for the support of [JetBrains](https://jb.gg/OpenSourceSupport).
